@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <img src="{{ url_for('static', filename='icons/mugichat-icon.png') }}" alt="MugiChat" class="auth-logo">
+            <h1>MugiChat</h1>
+            <p>Create your account</p>
+        </div>
+        
+        <form class="auth-form" method="POST" action="{{ url_for('register') }}" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                {{ form.username(class="form-control", placeholder="Choose a username") }}
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                    <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                {{ form.email(class="form-control", placeholder="Enter your email") }}
+                {% if form.email.errors %}
+                    {% for error in form.email.errors %}
+                    <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{ form.password(class="form-control", placeholder="Create a password") }}
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                    <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="password_confirm">Confirm Password</label>
+                {{ form.password_confirm(class="form-control", placeholder="Confirm your password") }}
+                {% if form.password_confirm.errors %}
+                    {% for error in form.password_confirm.errors %}
+                    <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="profile_picture">Profile Picture (Optional)</label>
+                {{ form.profile_picture(class="form-control") }}
+                {% if form.profile_picture.errors %}
+                    {% for error in form.profile_picture.errors %}
+                    <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            {{ form.submit(class="btn btn-primary btn-block") }}
+        </form>
+        
+        <div class="auth-footer">
+            <p>Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
+        </div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+{% endblock %}

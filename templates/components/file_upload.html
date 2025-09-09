@@ -1,0 +1,39 @@
+<div class="file-upload-modal" id="file-upload-modal" style="display: none;">
+    <div class="file-upload-container">
+        <div class="file-upload-header">
+            <h3>Send Files</h3>
+            <button class="modal-close" onclick="hideFileUploadModal()">&times;</button>
+        </div>
+        
+        <div class="file-upload-options">
+            <div class="upload-option" onclick="openGallery()">
+                <i class="fas fa-image"></i>
+                <span>Gallery</span>
+            </div>
+            <div class="upload-option" onclick="openDocumentPicker()">
+                <i class="fas fa-file"></i>
+                <span>Document</span>
+            </div>
+            <div class="upload-option" onclick="openCamera()">
+                <i class="fas fa-camera"></i>
+                <span>Camera</span>
+            </div>
+            <div class="upload-option" onclick="openAudioRecorder()">
+                <i class="fas fa-microphone"></i>
+                <span>Audio</span>
+            </div>
+        </div>
+        
+        <div class="file-preview" id="file-preview" style="display: none;">
+            <img src="" alt="Preview" id="file-preview-image">
+            <div class="file-info" id="file-info">
+                <span class="file-name" id="file-name"></span>
+                <span class="file-size" id="file-size"></span>
+            </div>
+            <button class="btn btn-primary" onclick="sendFile()">Send</button>
+        </div>
+        
+        <input type="file" id="file-input" style="display: none;" accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt">
+        <input type="file" id="camera-input" style="display: none;" accept="image/*" capture="camera">
+    </div>
+</div>

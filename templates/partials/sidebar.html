@@ -1,0 +1,67 @@
+<div class="sidebar-header">
+    <div class="user-info">
+        <img src="{{ url_for('static', filename='uploads/images/' + current_user.profile_picture) }}" 
+             alt="{{ current_user.username }}" class="user-avatar" id="user-avatar">
+        <span class="user-name">{{ current_user.username }}</span>
+    </div>
+    <div class="sidebar-header-icons">
+        <i class="fas fa-status" title="Status" onclick="showStatusModal()"></i>
+        <i class="fas fa-comment-alt" title="New Chat" onclick="showNewChatModal()"></i>
+        <i class="fas fa-ellipsis-v" title="Menu" onclick="toggleSidebarMenu()"></i>
+    </div>
+</div>
+
+<div class="search-container">
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="search-input" placeholder="Search or start new chat">
+    </div>
+</div>
+
+<div class="chats-list" id="chats-list">
+    <!-- Chats will be dynamically loaded here -->
+    <div class="loading-chats">Loading chats...</div>
+</div>
+
+<!-- Sidebar Menu (hidden by default) -->
+<div class="sidebar-menu" id="sidebar-menu">
+    <div class="menu-item" onclick="showProfile()">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+    </div>
+    <div class="menu-item" onclick="showArchived()">
+        <i class="fas fa-archive"></i>
+        <span>Archived</span>
+    </div>
+    <div class="menu-item" onclick="showStarred()">
+        <i class="fas fa-star"></i>
+        <span>Starred Messages</span>
+    </div>
+    <div class="menu-item" onclick="showSettings()">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+    </div>
+    <div class="menu-item" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </div>
+</div>
+
+<!-- New Chat Modal (hidden by default) -->
+<div class="modal-overlay" id="new-chat-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>New Chat</h3>
+            <button class="modal-close" onclick="closeNewChatModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="contact-search" placeholder="Search contacts">
+            </div>
+            <div class="contacts-list" id="contacts-list">
+                <!-- Contacts will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+</div>

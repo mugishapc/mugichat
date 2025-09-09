@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="app-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        {% include "partials/sidebar.html" %}
+    </div>
+    
+    <!-- Chat Area -->
+    <div class="chat-area">
+        {% include "partials/chat_area.html" %}
+    </div>
+</div>
+
+<!-- Modals and overlays -->
+{% include "components/call_modal.html" %}
+{% include "components/emoji_picker.html" %}
+{% include "components/file_upload.html" %}
+
+<!-- Initialization script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize the application
+        initApp();
+        
+        // Load initial data
+        loadInitialData();
+    });
+    
+    function loadInitialData() {
+        // Fetch users and groups
+        fetch('/api/users')
+            .then(response => response.json())
+            .then(data => {
+                users = data;
+                renderChatsList();
+            });
+            
+        fetch('/api/groups')
+            .then(response => response.json())
+            .then(data => {
+                groups = data;
+                renderChatsList();
+            });
+    }
+</script>
+{% endblock %}

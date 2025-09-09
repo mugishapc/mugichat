@@ -1,0 +1,63 @@
+{% macro render_message(message, current_user) %}
+<div class="message {% if message.sender_id == current_user.id %}message-out{% else %}message-in{% endif %}" 
+     data-message-id="{{ message.id }}">
+    
+    {% if message.is_group and message.sender_id != current_user.id %}
+    <div class="message-sender">{{ message.sender.username }}</div>
+    {% endif %}
+    
+    {% if message.reply_to %}
+    <div class="message-reply">
+        <div class="reply-sender">
+            {% if message.reply_to.sender_id == current_user.id %}You{% else %}{{ message.reply_to.sender.username }}{% endif %}
+        </div>
+        <div class="reply-content">
+            {% if message.reply_to.message_type == 'text' %}
+                {{ message.reply_to.content }}
+            {% elif message.reply_to.message_type == 'image' %}
+                <i class="fas fa-image"></i> Photo
+            {% elif message.reply_to.message_type == 'document' %}
+                <i class="fas fa-file"></i> Document
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="message-content">
+        {% if message.message_type == 'text' %}
+            {{ message.content }}
+        {% elif message.message_type == 'image' %}
+            <img src="{{ message.file_url }}" alt="Shared image" class="message-image" onclick="openImageModal('{{ message.file_url }}')">
+        {% elif message.message_type == 'document' %}
+            <div class="document-message">
+                <i class="fas fa-file-download document-icon"></i>
+                <div class="document-info">
+                    <a href="{{ message.file_url }}" download class="document-name">Download file</a>
+                    <span class="document-size">{{ message.file_size | filesizeformat if message.file_size else 'Unknown size' }}</span>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="message-meta">
+        <span class="message-time">{{ message.timestamp.strftime('%H:%M') }}</span>
+        {% if message.sender_id == current_user.id %}
+            <span class="message-status">
+                {% if message.is_read %}
+                    <i class="fas fa-check-double read-status"></i>
+                {% else %}
+                    <i class="fas fa-check"></i>
+                {% endif %}
+            </span>
+        {% endif %}
+    </div>
+    
+    {% if message.reactions %}
+    <div class="message-reactions">
+        {% for reaction in message.reactions %}
+            <span class="reaction" title="{{ reaction.user.username }}">{{ reaction.emoji }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endmacro %}

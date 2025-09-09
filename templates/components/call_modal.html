@@ -1,0 +1,30 @@
+<div class="call-modal" id="call-modal" style="display: none;">
+    <div class="call-container">
+        <div class="caller-info">
+            <img src="" alt="Caller" class="caller-avatar" id="caller-avatar">
+            <div class="caller-name" id="caller-name"></div>
+            <div class="call-type" id="call-type"></div>
+            <div class="call-status" id="call-status">Connecting...</div>
+        </div>
+        
+        <div class="video-container" id="video-container" style="display: none;">
+            <video id="remote-video" autoplay playsinline></video>
+            <video id="local-video" autoplay playsinline muted></video>
+        </div>
+        
+        <div class="call-buttons">
+            <div class="call-btn call-accept" id="accept-call" onclick="acceptCall()">
+                <i class="fas fa-phone"></i>
+            </div>
+            <div class="call-btn call-decline" onclick="endCall()">
+                <i class="fas fa-phone-slash"></i>
+            </div>
+            <div class="call-btn call-toggle-video" onclick="toggleVideo()">
+                <i class="fas fa-video" id="video-icon"></i>
+            </div>
+            <div class="call-btn call-toggle-audio" onclick="toggleAudio()">
+                <i class="fas fa-microphone" id="audio-icon"></i>
+            </div>
+        </div>
+    </div>
+</div>
